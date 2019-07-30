@@ -1,0 +1,17 @@
+
+.jumbotron {
+    background-image: url("../images/tracks.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+    color: white;
+}
+
+.h1 {
+    font-size: 3.5rem;
+}
+
+.h2 {
+    font-size: 2rem;
+}
