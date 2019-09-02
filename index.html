@@ -3,74 +3,91 @@
 <head>
    <meta charset="utf-8">
     <title>Train Scheduler</title>
+    <!--Link to BootStrap CDN-->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <!--Link to Custom CSS-->
    <link rel="stylesheet" href="assets/css/style.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
  <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
 </head>
 
 <body>
-<div class="container">
+    <!--Header / Jumbotron-->
     <div class="jumbotron jumbotron-fluid header">
-         <h1 class="text-center">TRAIN SCHEDULER</h1>
-         <p class="text-center">HIT THE TRACKS...AND DON'T COME BACK</p>
-         <h2 class="text-center current-time">14:05:23</h2>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-primary">
-                 <div class="panel-heading">
-                   <h3 class="panel-title"><strong>Current Choo Choo Schedule</strong></h3>
-                 </div>
-                 <div class="panel-body">
-                     <table class="table table-hover" id="trainTable">
-                         <thead>
-                             <tr id="trainResult">
-                                 <th id="trainName">Train Name</th>
-                                 <th id="where">Where I'm going</th>
-                                 <th id="Hz">Frequency (min)</th>
-                                 <th id="next">Next Choo Choo</th>
-                                 <th id="time">Minutes Away</th>
-                             </tr>
-                         </thead>
-                         <tbody id="AddTrain">
-                         </tbody>
-                    </table>
-                 </div>
-            </div>
+        <div class="container-fluid">
+            <h1 class="text-center">TRAIN SCHEDULER</h1>
+            <p class="text-center text-warning"><strong>HIT THE TRACK...AND DON'T LOOK BACK</strong></p>
+            <h2 class="text-center currentTime">14:05:23</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-primary">
-                 <div class="panel-heading">
-                   <h3 class="panel-title"><strong>Add Train</strong></h3>
-                 </div>
-                 <div class="panel-body">
-                 <form>
-                     <div class="form-group">
-                         <label for="train-input">Train Name</label>
-                         <input type="text" class="form-control" id="train-input">
-                     </div>
-                     <div class="form-group">
-                         <label for="place-input">Place</label>
-                         <input type="text" class="form-control" id="place-input">
-                     </div>
-                     <div class="form-group">
-                         <label for="firsttrain-input">1st Train Time (HH:mm - military time)</label>
-                         <input type="text" class="form-control" id="firsttrain-input" placeholder="13:00 military">
-                     </div>
-                     <div class="form-group">
-                         <label for="frequency-input">Freq (min)</label>
-                         <input type="text" class="form-control" id="frequency-input">
-                     </div>
-                     <button type="submit" class="btn btn-danger" id="addtrains">Run It</button>
-                 </form>
+    <!--Main Body-->
+    <div class="container-fluid">
+        <div class="row">
+
+        <!--Left Side / Add a Train-->
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="card">
+                        <div class="card-header bg-warning">
+                            <h3 class="card-title"><strong>Add a Train</strong></h3>
+                        </div>
+                            <div class="form-group">
+                                <label for="number-input">Train #</label>
+                                <input type="text" class="form-control" id="number-input" placeholder="1666">
+                                </div>
+                    
+                             <div class="form-group">
+                                 <label for="name-input">Name</label>
+                                 <input type="text" class="form-control" id="name-input" placeholder="Bat Outta">
+                             </div>
+
+                             <div class="form-group">
+                                 <label for="destination-input">Destination</label>
+                                 <input type="text" class="form-control" id="to-input" placeholder="Hell">
+                             </div>
+
+                             <div class="form-group">
+                                    <label for="arrival-input">Arrival</label>
+                                    <input type="text" class="form-control"  id="arrival-input" placeholder="04:44 (Military Time)">
+                            </div>
+
+                             <div class="form-group">
+                                 <label for="frequency-input">Frequency (hr,min)</label>
+                                 <input type="text" class="form-control" id="frequency-input" placeholder="06:06">
+                             </div>
+
+                             <div class="form-group">
+                                    <label for="track-input">Track</label>
+                                    <input type="text" class="form-control"  id="platform-input" placeholder="6B">
+                            </div>
+                             <button type="submit" class="btn btn-warning"><strong>Submit</strong></button>
+                    </div>
+                </div>
+        <!--Right Side / Current Schedule-->  
+        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h3 class="card-title"><strong>Current Schedule</strong></h3>
+                    </div>
+                    <table class="table table-hover" id="train-table">
+                            <thead class="thead-warning">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Train</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Arrival</th>
+                                    <th scope="col">Frequency</th>
+                                    <th scope="col">Track</th>
+                                </tr>
+                            </thead>
+                            <tbody id="train-data-area">
+                            </tbody>
+                       </table>   
                  </div>
             </div>
         </div>
     </div>
 </div>
+  
 <script
  src="https://code.jquery.com/jquery-3.4.1.min.js"
  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
