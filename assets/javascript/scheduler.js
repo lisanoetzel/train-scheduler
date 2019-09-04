@@ -75,25 +75,44 @@ var firebaseConfig = {
                 return false;   
         });
         
-   //Adding listener that will post FIREBASE data to html
-        database().ref().on("child_added"), function(childSnapshot){
-            console.log(childSnapshot.val());
+   //Pull data from FIREBASE to send to HTML
+        database.ref().on("child_added", function(childSnapshot){
 
-        // Train information stored in variable
-            var trainNumber = childSnapshot.val().number;
-            var trainName = childSnapshot.val().name;
-            var trainDestination = childSnapshot.val().destination;
-            var trainArrival = childSnapshot.val().arrival;
-            var trainFrequency = childSnapshot.val().frequency;
-            var trainTrack = childSnapshot.val().track;
+            //Console Logs
+           console.log(childSnapshot.val().number);
+           console.log(childSnapshot.val().name);
+           console.log(childSnapshot.val().destination);
+           console.log(trainArrival = childSnapshot.val().arrival);
+           console.log(childSnapshot.val().frequency);
+           console.log(childSnapshot.val().track);
 
-            // Console Logs
-                console.log(trainNumber);
-                console.log(trainName);
-                console.log(trainDestination);
-                console.log(trainArrival);
-                console.log(trainFrequency);
-                console.log(trainTrack);
+        //Appending Train Data to HTML
+        $("#train-data-area").append(
+            "<tr>" +
+                "<th scope='row'>" + childSnapshot.val().number + "</th>" +
+                "<td>" + childSnapshot.val().name + "</td>" +
+                "<td>" + childSnapshot.val().destination + "</td>" +
+                "<td>" + childSnapshot.val().arrival + "</td>" +
+                "<td>" + childSnapshot.val().frequency + "</td>" +
+                "<td>" + childSnapshot.val().track + "</td>" +
+            "</tr>"
+        
+         , function (errorObject) {
+                console.log("Errors handled: " + errorObject);
+
+        });
+            database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot){
+                $("#number-display").text(snapshot.val().number); 
+                $("#name-display").text(snapshot.val().name); 
+                $("#destination-display").text(snapshot.val().destination); 
+                $("#arrival-display").text(snapshot.val().arrival);
+                $("#frequency-display").text(snapshot.val().frequency);
+                $("#away-display").text(snapshot.val().away);
+                $("#track-display").text(snapshot.val().track);
+
+            });
+        ;
+        });
 
     // ************** TIME CALCULATIONS ********************//
 
@@ -101,20 +120,15 @@ var firebaseConfig = {
                 var currentTime = moment();
                     console.log("Current Time is " + moment(currentTime).format("HH:mm:ss"));
 
-            //Appending Current Time
-                $("#current-time").append("<h2> </h2");
+              //Appending Current Time
+                $("#current-time").append("<h2></h2");
 
-            //Appending Train Data to HTML
-                $("#train-data-area").append(
-                    "<tr>" +
-                        "<th scope='row'>" + trainNumber + "</th>" +
-                        "<td>" + trainName + "</td>" +
-                        "<td>" + trainDestination + "</td>" +
-                        "<td>" + trainArrival + "</td>" +
-                        "<td>" + trainFrequency + "</td>" +
-                        "<td>" + trainTrack + "</td>" +
-                    "</tr>"
-                );
+            //First Arrival
+                var firstArrival =  moment(arrival, "HH:mm:ss");
+                    console.log("First arrival is " + moment(arrival).format("HH:mm:ss"));
+            
+            //First Time Away
+                var firstAway = moment().diff(currentTime - firstArrival, "HH:mm:ss");
 
-        };
-             
+            //Subsequent Time Away
+                var timeAway = moment().diff(firstAway + frequency, "HH:mm:ss"); 

@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <h1 class="text-center">TRAIN SCHEDULER</h1>
             <p class="text-center text-warning"><strong>HIT THE TRACK...AND DON'T LOOK BACK</strong></p>
-            <h2 class="text-center" id="current-time">14:05:23 EST</h2>
+            <h2 class="text-center" id="current-time"> EST</h2>
         </div>
     </div>
     <!--Main Body-->
@@ -83,20 +83,30 @@
                     <div class="card-header bg-warning">
                         <h3 class="card-title"><strong>Current Schedule</strong></h3>
                     </div>
-                    <table class="table table-hover" id="train-table">
+                    <table class="table table-hover">
                             <thead class="thead-warning">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Train</th>
-                                    <th scope="col">Destination</th>
-                                    <th scope="col">Arrival</th>
-                                    <th scope="col">Frequency</th>
+                                    <td scope="col">Train</td>
+                                    <td scope="col">Destination</td>
+                                    <td scope="col">Arrival</td>
+                                    <td scope="col">Frequency</td>
                                     <!-- <th scope="col">Next Train</th> -->
-                                    <th scope="col">Time Away</th>
-                                    <th scope="col">Track</th>
+                                    <td scope="col">Time Away</td>
+                                    <td scope="col">Track</td>
                                 </tr>
                             </thead>
-                            <tbody id="train-data-area">
+                            <tbody id="train-table">
+                                <tr>
+                                    <th scope="col" id="number-display"></th>
+                                    <td scope="col" id="name-display"></td>
+                                    <td scope="col" id="destination-display"></td>
+                                    <td scope="col" id="arrival-display"></td>
+                                    <td scope="col" id="frequency-display"></td>
+                                    <!-- <th scope="col">Next Train</th> -->
+                                    <td scope="col" id="away-display"></td>
+                                    <td scope="col" id="track-display"></td>
+                                </tr>
                             </tbody>
                        </table>   
                  </div>
