@@ -23,44 +23,98 @@ var firebaseConfig = {
         
         console.log("number", "name");
 
-  //On click listener for Submit button  
+  //Listener for Submit button  
     $("#add-train").on("click", function(){
-        var number = $("#number-input").val().trim();
-        var name = $("#name-input").val().trim();
-        var destination = $("#destination-input").val().trim();
-        var arrival = $("#arrival-input").val().trim();
-        var frequency = $("#frequency-input").val().trim();
-        var track = $("#track-input").val().trim();
+        // $("#add-train").submit(function(event){
 
-            console.log(number+" "+ name +" "+ destination);
+            //User Input
+            var trainNumber = $("#number-input").val().trim();
+            var trainName = $("#name-input").val().trim();
+            var trainDestination = $("#destination-input").val().trim();
+            var trainArrival = moment($("#arrival-input").val().trim(), "HH:mm:ss").format("HH:mm:ss");
+            var trainFrequency = $("#frequency-input").val().trim();
+            // var trainNext = moment($("#next-input").val().trim(), "HH:mm:ss").format("HH:mm:ss");
+            var trainTrack = $("#track-input").val().trim();
+
+            //Object for above data
+            var newTrain = {
+                number: trainNumber,
+                name: trainName,
+                destination: trainDestination,
+                arrival: trainArrival,
+                frequency: trainFrequency,
+                // next: trainNext,
+                track: trainTrack
+            };
+
+            // Push data to FIREBASE
+                database.ref().push(newTrain); 
+
+            //Console Logs 
+                console.log("Button has been clicked");
+                console.log(newTrain.number);
+                console.log(newTrain.name);
+                console.log(newTrain.destination);
+                console.log(newTrain.arrival);
+                console.log(newTrain.frequency);
+                // console.log(newTrain.next);
+                console.log(newTrain.track);
             
-// Push data to FIREBASE
-        firebase.database.ref().push ( {
-            number: number,
-            name: name,
-            destination: destination,
-            arrival: arrival,
-            frequency: frequency,
-            track: track,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP
+            //Alert
+                alert("New train added");
 
-            //Adding listener that will post FIREBASE data to html
-            firebase.database().ref().orderByChild("dateAdded").limitToLast(1).on("child_added"), function(snapshot){
+            //Clear User-input form
+                $("#number-input").val("");
+                $("#name-input").val("");
+                $("#destination-input").val("");
+                $("#arrival-input").val("");
+                $("#frequency-input").val("");
+                $("#track-input").val("");
 
-                //Dispay area changes according to data
-                $("#train-data-area").html(snapshot.val().add-train);
+            //Next train arrives
+                return false;   
+        });
+        
+   //Adding listener that will post FIREBASE data to html
+        database().ref().on("child_added"), function(childSnapshot){
+            console.log(childSnapshot.val());
 
-            })
+        // Train information stored in variable
+            var trainNumber = childSnapshot.val().number;
+            var trainName = childSnapshot.val().name;
+            var trainDestination = childSnapshot.val().destination;
+            var trainArrival = childSnapshot.val().arrival;
+            var trainFrequency = childSnapshot.val().frequency;
+            var trainTrack = childSnapshot.val().track;
 
-    
+            // Console Logs
+                console.log(trainNumber);
+                console.log(trainName);
+                console.log(trainDestination);
+                console.log(trainArrival);
+                console.log(trainFrequency);
+                console.log(trainTrack);
 
-        $("#train-data-area").append("<hr>"); 
-        $("#train-data-area").append("<tr>"+snapshot.val().add-train+"</tr>");
-        $("#train-data-area").append("<hr>"); 
+    // ************** TIME CALCULATIONS ********************//
 
-            })
+            //CURRENT TIME
+                var currentTime = moment();
+                    console.log("Current Time is " + moment(currentTime).format("HH:mm:ss"));
 
-        }) 
+            //Appending Current Time
+                $("#current-time").append("<h2> </h2");
 
-    })
+            //Appending Train Data to HTML
+                $("#train-data-area").append(
+                    "<tr>" +
+                        "<th scope='row'>" + trainNumber + "</th>" +
+                        "<td>" + trainName + "</td>" +
+                        "<td>" + trainDestination + "</td>" +
+                        "<td>" + trainArrival + "</td>" +
+                        "<td>" + trainFrequency + "</td>" +
+                        "<td>" + trainTrack + "</td>" +
+                    "</tr>"
+                );
 
+        };
+             
