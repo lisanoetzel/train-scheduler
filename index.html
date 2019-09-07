@@ -27,9 +27,9 @@
         <div class="container-fluid">
             <h1 class="text-center">TRAIN SCHEDULER</h1>
             <p class="text-center text-warning"><strong>HIT THE TRACK...AND DON'T LOOK BACK</strong></p>
-            <h2 class="text-center" id="current-time"> EST</h2>
+            <h2 class="text-center"><span id="current-time"></span> EST</h2>
         </div>
-    </div>
+    </div>*
     <!--Main Body-->
     <div class="container-fluid">
         <div class="row">
@@ -89,24 +89,15 @@
                                     <th scope="col">#</th>
                                     <td scope="col">Train</td>
                                     <td scope="col">Destination</td>
-                                    <td scope="col">Arrival</td>
+                                    <td scope="col">Next Arrival</td>
                                     <td scope="col">Frequency</td>
                                     <!-- <th scope="col">Next Train</th> -->
-                                    <td scope="col">Time Away</td>
+                                    <td scope="col">Minutes Away</td>
                                     <td scope="col">Track</td>
                                 </tr>
                             </thead>
                             <tbody id="train-table">
-                                <tr>
-                                    <th scope="col" id="number-display"></th>
-                                    <td scope="col" id="name-display"></td>
-                                    <td scope="col" id="destination-display"></td>
-                                    <td scope="col" id="arrival-display"></td>
-                                    <td scope="col" id="frequency-display"></td>
-                                    <!-- <th scope="col">Next Train</th> -->
-                                    <td scope="col" id="away-display"></td>
-                                    <td scope="col" id="track-display"></td>
-                                </tr>
+                               
                             </tbody>
                        </table>   
                  </div>
